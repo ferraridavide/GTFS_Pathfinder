@@ -1,5 +1,7 @@
 package gtfs.models;
 
+import gtfs.Helpers;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -34,8 +36,8 @@ public class StopTimes {
                     .forEach((element) -> {
                         var stopTime = new StopTimes();
                         stopTime.trip_id = Integer.parseInt(element[0]);
-                        stopTime.arrival_time = TimeToSeconds(element[1]);
-                        stopTime.departure_time = TimeToSeconds(element[2]);
+                        stopTime.arrival_time = Helpers.timeToSeconds(element[1]);
+                        stopTime.departure_time = Helpers.timeToSeconds(element[2]);
                         stopTime.stop_id = Integer.parseInt(element[3]);
                         stopTime.stop_sequence = Integer.parseInt(element[4]);
                         stopTimesList.add(stopTime);
@@ -45,13 +47,6 @@ public class StopTimes {
         }
 
         return stopTimesList;
-    }
-
-    private static Integer TimeToSeconds(String time) {
-        var hh = time.substring(0,2);
-        var mm = time.substring(3,5);
-        var ss = time.substring(6,8);
-        return Integer.parseInt(hh) * 3600 + Integer.parseInt(mm) * 60 + Integer.parseInt(ss);
     }
 
     @Override
