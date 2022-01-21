@@ -59,17 +59,21 @@ public class Entrypoint {
                     // Collego tutte le fermate trovate con fermate successive
                     if (!nodeA.equals(nodeB) && nodeA.stopTime.arrival_time < nodeB.stopTime.arrival_time && (nodeB.stopTime.arrival_time - nodeA.stopTime.arrival_time) < 3600) {
                         nodeA.addDestination(nodeB, (nodeB.stopTime.arrival_time - nodeA.stopTime.arrival_time) + 1); // + 1 è il prezzo simbolico del cambio, per incentivare soluzioni con meno cambi possibili
+
                     }
                 }
             }
         }
 
 
+        var STOP_ID_PARTENZA = 332;
+        var STOP_ID_ARRIVO = 2793;
 
 
+        var partenze = tripsNodeList.stream().filter(x -> x.stopTime.stop_id == STOP_ID_PARTENZA).toList();
+        var arrivi = tripsNodeList.stream().filter(x -> x.stopTime.stop_id == STOP_ID_ARRIVO).toList();
 
-        var partenze = tripsNodeList.stream().filter(x -> x.stopTime.stop_id == 2033).toList();
-        var arrivi = tripsNodeList.stream().filter(x -> x.stopTime.stop_id == 964).toList();
+
 
 
         var progress = 0;
